@@ -14,9 +14,6 @@ class SubmissionSaved
     public $submission;
 
 
-    /**Create a new event instance.
-     * @return void
-     */
     public function __construct(Submission $submission)
     {
         $this->submission = $submission;

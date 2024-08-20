@@ -18,9 +18,6 @@ class ProcessSubmission implements ShouldQueue
 
     protected array $submissionData;
 
-    /**
-     * Create a new job instance.
-     */
     public function __construct(array $submissionData)
     {
         $this->submissionData = $submissionData;
@@ -31,16 +28,11 @@ class ProcessSubmission implements ShouldQueue
         return $this->submissionData;
     }
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
         try {
-            // Save submission to the database
             $submission = Submission::create($this->submissionData);
 
-            // Trigger the SubmissionSaved event
             event(new SubmissionSaved($submission));
         } catch (Exception $e) {
             Log::error('Submission failed: ' . $e->getMessage(), $e->getTrace());
